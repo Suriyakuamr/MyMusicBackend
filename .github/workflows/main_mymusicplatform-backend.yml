@@ -24,16 +24,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release # <-- Automatically finds and builds the project file
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp # <-- Automatically publishes the project file
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp" # <-- Added double-quotes to handle the space in "Program Files"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: "${{env.DOTNET_ROOT}}/myapp" # <-- Added double-quotes here too for safety
 
   deploy:
     runs-on: windows-latest
