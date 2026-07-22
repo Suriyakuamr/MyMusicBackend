@@ -47,7 +47,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+          path: ./publish # <-- Downloads the compiled binaries into a directory named "publish"
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -61,5 +62,4 @@ jobs:
         with:
           app-name: 'MyMusicPlatform-BackEnd'
           slot-name: 'Production'
-          package: .
-          
+          package: ./publish # <-- Deploys only the contents of the "publish" directory to Azure root
